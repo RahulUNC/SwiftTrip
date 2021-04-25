@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SwiftTrip</title>
+
+    <!-- Include links to CSS stylesheets below -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav class="blue darken-4">
+            <div class="nav-wrapper container">
+                <a class="brand-logo">SwiftTrip</a>
+                <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li class="logged-in">
+                        <a id="feed-desk"><i class="material-icons-outlined left">restaurant</i>Restaurants</a>
+                    </li>
+                    <li class="logged-in">
+                        <a id="attraction-desk"><i class="material-icons-outlined left">park</i>Attractions</a>
+                    </li>
+                    <li class="logged-in">
+                        <a id="account-details"><i class="material-icons-outlined left">person</i>Account</a>
+                    </li>
+                    <li class="logged-in">
+                        <a id="logout"><i class="material-icons-outlined left">logout</i>Logout</a>
+                    </li>
+                    <li class="logged-out">
+                        <a class="modal-trigger" data-target="modal-login"><i
+                                class="material-icons-outlined left">login</i>Login</a>
+                    </li>
+                    <li class="logged-out">
+                        <a class="modal-trigger" data-target="modal-signup"><i
+                                class="material-icons-outlined left">add</i>Create Account</a>
+                    </li>
+                    </span>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <ul class="sidenav" id="mobile-demo">
+        <li class="logged-in">
+            <a id="feed-mobile"><i class="material-icons-outlined left">restaurant</i>Restaurants</a>
+        </li>
+        <li class="logged-in">
+            <a id="attraction-mobile"><i class="material-icons-outlined left">park</i>Attractions</a>
+        </li>
+        <li class="logged-in">
+            <a id="account-details-mobile"><i class="material-icons-outlined left">person</i>Account</a>
+        </li>
+        <li class="logged-in">
+            <a id="logout-mobile"><i class="material-icons-outlined left">logout</i>Logout</a>
+        </li>
+        <li class="logged-out">
+            <a class="modal-trigger" data-target="modal-login"><i
+                    class="material-icons-outlined left">login</i>Login</a>
+        </li>
+        <li class="logged-out">
+            <a class="modal-trigger" data-target="modal-signup"><i class="material-icons-outlined left">add</i>Create
+                Account</a>
+        </li>
+    </ul>
+    <div class="parallax-container logged-out">
+        <div class="parallax"><img src="images/main.jpeg" style="transform: translate3d(-50%, 312.943px, 0px); opacity: 1;"></div>
+    </div>
+    <div class="container logged-out">
+        <h1 class="header center blue-text darken-4">SwiftTrip</h1>
+        <div class="row center">
+            <h5 class="header col s12 light">Skip the lines around Chapel Hill</h5>
+        </div>
+        <div class="row center">
+            <a href="http://materializecss.com/getting-started.html" data-target="modal-signup" id="download-button"
+                class="btn-large waves-effect waves-light blue darken-4 modal-trigger">Sign up</a>
+        </div>
+    </div>
+    <div id="modal-signup" class="modal">
+        <div class="modal-content">
+            <h4>Create a new account!</h4>
+            <form id="signup-form">
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">badge</i>
+                    <input type="text" id="signup-name" required />
+                    <label for="signup-name">Name</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">email</i>
+                    <input type="email" id="signup-email" required />
+                    <label for="signup-email">Email address</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">lock</i>
+                    <input type="password" id="signup-password" required />
+                    <label for="signup-password">Choose password</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">contact_mail</i>
+                    <input type="text" id="signup-address" required />
+                    <label for="signup-address">Mailing Address</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">cake</i>
+                    <input type="text" id="signup-age" required />
+                    <label for="signup-age">Enter Age</label>
+                </div>
+                <div id="logout-error"></div>
+                <button class="btn waves-effect blue darken-4">Sign up</button>
+            </form>
+        </div>
+    </div>
+    <div id="modal-login" class="modal">
+        <div class="modal-content">
+            <h4>Login</h4>
+            <form id="login-form">
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">email</i>
+                    <input type="email" id="login-email" required />
+                    <label for="login-email">Email address</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons-outlined prefix">lock</i>
+                    <input type="password" id="login-password" required />
+                    <label for="login-password">Your password</label>
+                </div>
+                <div id="login-error"></div>
+                <button class="btn waves-effect blue darken-4 right-align">Login</button>
+            </form>
+        </div>
+    </div>
+    <div class="parallax-container logged-out">
+        <div class="parallax"><img src="images/well.jpg" style="transform: translate3d(-50%, 312.943px, 0px); opacity: 1;"></div>
+    </div>
+    <div class="container logged-out">
+        <div class="section">
+
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                        <h5 class="center">Crowd Sourced Data</h5>
+
+                        <p class="light center">Swift Trip sorts all locations by the ones that are projected to be the least
+                            packed. Included weather tip so you know what to expect as you head out.</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                        <h5 class="center">User Tailored</h5>
+
+                        <p class="light center">User's simply put their address and SwiftTrip provides quick directions 
+                                         to local locations, along with useful information about they place they visit!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center light-blue-text"><i class="material-icons">coronavirus</i></h2>
+                        <h5 class="center">Stay Safe</h5>
+
+                        <p class="light center">SwiftTrip gives occupancy data can help you stay socially distant. You will
+                                         be able to go to your favorite places when they are the least packed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="parallax-container logged-out">
+        <div class="parallax"><img src="images/library.jpg" style="transform: translate3d(-50%, 312.943px, 0px); opacity: 1;"></div>
+    </div>
+    <div class="container">
+        <div class="section" id="logged-in-content">
+        </div>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCDbPJBxgvCPaUtOiFca5O30PEiqyV5sxI",
+            authDomain: "swift-meals.firebaseapp.com",
+            databaseURL: "https://swift-meals-default-rtdb.firebaseio.com",
+            projectId: "swift-meals",
+            messagingSenderId: "534190760829",
+            appId: "1:534190760829:web:fadbabcb88b49a5b79a214"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="firebase-auth.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+</body>
+<footer class="page-footer blue darken-4">
+    <div class="footer-copyright">
+        <div class="container">
+            Rahul Narvekar | COMP 426 Final Project
+        </div>
+    </div>
+</footer>
+
+</html>
