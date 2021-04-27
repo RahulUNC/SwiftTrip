@@ -50,7 +50,7 @@ function popularTime(attraction) {
 async function getData() {
     let result = await axios({
         method: 'GET',
-        url: 'https://api.apify.com/v2/datasets/APIKEY/items'
+        url: 'https://api.apify.com/v2/actor-tasks/TASK/runs/last/dataset/items?token=APIKEY'
     });
     return result['data'];
 }

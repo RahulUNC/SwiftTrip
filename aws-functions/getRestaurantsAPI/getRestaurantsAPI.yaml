@@ -12,6 +12,11 @@ Resources:
       MemorySize: 128
       Timeout: 300
       Role: 'arn:aws:iam::229754962381:role/service-role/getLocations-role-5hyjalk2'
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 day)
       Environment:
         Variables:
           TABLE_NAME: restaurants

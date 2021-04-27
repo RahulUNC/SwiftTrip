@@ -16,10 +16,5 @@ Resources:
         Api1:
           Type: Api
           Properties:
-            Path: /MyResource
-            Method: ANY
-        Api2:
-          Type: Api
-          Properties:
             Path: /getrestaurants
             Method: GET
