@@ -10,7 +10,7 @@ Resources:
       CodeUri: .
       Description: ''
       MemorySize: 128
-      Timeout: 3
+      Timeout: 15
       Role: 'arn:aws:iam::229754962381:role/service-role/getLocations-role-5hyjalk2'
       Events:
         Api1:
