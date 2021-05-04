@@ -17,8 +17,76 @@ document.getElementById('attraction-desk').addEventListener('click', () => loadA
 document.getElementById('attraction-mobile').addEventListener('click', () => loadAttractions());
 document.getElementById('account-details').addEventListener('click', async () => { accountDetails()});
 document.getElementById('account-details-mobile').addEventListener('click', async () => { accountDetails()});
+document.getElementById('dark-mode-mobile').addEventListener('click', () => darkBoolean());
+document.getElementById('dark-mode').addEventListener('click', () => darkBoolean());
+
+//dark mode
+function darkBoolean() {
+    if(dark) {
+        dark = false
+        firestore.collection('users').doc(auth.currentUser.uid).update({dark: false});
+    } else {
+        dark = true;
+        firestore.collection('users').doc(auth.currentUser.uid).update({dark: true});
+    }
+    darkToggle();
+}
+async function darkToggle() {
+    let user = await firestore.collection('users').doc(auth.currentUser.uid).get();
+    dark = user.data().dark;
+    if(dark === true) {
+        document.querySelectorAll('.card').forEach(card => {
+            card.classList.remove('grey')
+            card.classList.remove('darken-2')
+        })
+        document.querySelectorAll('.card-reveal').forEach(card => {
+            card.classList.remove('grey')
+            card.classList.remove('darken-2')
+        })
+        document.querySelectorAll('.modal').forEach(card => {
+            card.classList.remove('grey')
+            card.classList.remove('darken-2')
+        })
+        document.body.classList.remove('grey')
+        document.body.classList.remove('darken-3')
+        document.body.classList.remove('white-text')
+        document.querySelector('.sidenav').classList.remove('grey')
+        document.querySelector('.sidenav').classList.remove('darken-3')
+        document.querySelector('.sidenav').classList.remove('white-text')
+        document.querySelectorAll('.mnav').forEach(item => {
+            item.classList.remove('grey')
+            item.classList.remove('darken-3') 
+            item.classList.remove('white-text')
+        });
+    } else {
+        document.querySelectorAll('.modal').forEach(card => {
+            card.classList.add('grey')
+            card.classList.add('darken-2')
+        })
+        document.querySelectorAll('.card').forEach(card => {
+            card.classList.add('grey')
+            card.classList.add('darken-2')
+        })
+        document.querySelectorAll('.card-reveal').forEach(card => {
+            card.classList.add('grey')
+            card.classList.add('darken-2')
+        })
+        document.body.classList.add('grey')
+        document.body.classList.add('darken-3')
+        document.body.classList.add('white-text')
+        document.querySelector('.sidenav').classList.add('grey')
+        document.querySelector('.sidenav').classList.add('darken-3')
+        document.querySelector('.sidenav').classList.add('white-text')
+        document.querySelectorAll('.mnav').forEach(item => {
+            item.classList.add('grey')
+            item.classList.add('darken-3') 
+            item.classList.add('white-text')
+        });
+    }
+}
 
 //Variables that store data
+export let dark = false;
 let responseRestaurant = [];
 let responseAttraction = [];
 let likes = [];
@@ -29,9 +97,11 @@ let weather = ``;
 let weatherIcon = ``;
 let temp;
 let type;
+let token = '';
 
 //landing Page functions
 export default function landingPage() {
+    darkToggle();
     document.getElementById('logged-in-content').innerHTML = `<h4 class="center">Welcome to SwiftTrip!</h4>    
                                                                 <div class="parallax-container logged-out">
                                                                     <div class="parallax"><img src="images/dusk.jpg" style="transform: translate3d(-40%, 150px, 0px); opacity: 1;"></div>
@@ -109,6 +179,7 @@ export async function loadAttractions() {
     })
     let image = document.querySelectorAll('.materialboxed');
     let imageInstance = M.Materialbox.init(image);
+    darkToggle();
 }
 
 //render attractions page
@@ -126,7 +197,7 @@ function loadAttractionElement(attraction) {
             ${genLikeHtml1(attraction.attractionId)}
         </div>
         <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">${attraction.name}<i class="material-icons right">close</i></span>
+            <span class="card-title">${attraction.name}<i class="material-icons right">close</i></span>
             <p>${attraction.street}</p>
             <div class="row">
                 <div class="col s12 m4">
@@ -134,13 +205,20 @@ function loadAttractionElement(attraction) {
                     <p><i class="material-icons-outlined left">reviews</i> Overall Rating: ${attraction.rating}/5</p>
                     <p><i class="material-icons-outlined left">groups</i> Currently ${attraction.popularTime}% Occupied</p>
                     <a target="_blank" href="http://www.${attraction.website}"><i class="material-icons-outlined left">language</i>Website</a>
-                    <p><i class="material-icons-outlined left">restaurant</i> Cuisine: ${attraction.type}</p>
+                    <p><i class="material-icons-outlined left">park</i> Type: ${attraction.type}</p>
                 </div>
                 <div class="col s12 m4">
                     <h6>Map</h6>
-                    <iframe class="center" width="275" style="border:0" loading="lazy" allowfullscreen
-                        src="https://www.google.com/maps/embed/v1/place?key=APIKEY&q=place_id:${attraction.placeId}">
-                    </iframe>
+                    <div id="map-${attraction.placeId}" style="height:175px">
+                        <iframe
+                            class="center"
+                            width="275"
+                            style="border:0"
+                            loading="lazy"
+                            allowfullscreen
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBk9-q-2IJGlD0OoWJJ-AT9DV0kYatK8xA&q=place_id:${attraction.placeId}">
+                        </iframe>
+                    </div>
                 </div>
                 <div class="col s12 m4" id="direction-${attraction.placeId}">
                     <a id="${attraction.placeId}" class="waves-effect blue btn direction center"><i class="material-icons-outlined left">directions</i>Directions</a>
@@ -242,6 +320,7 @@ export async function loadItems() {
     })
     let image = document.querySelectorAll('.materialboxed');
     let imageInstance = M.Materialbox.init(image);
+    darkToggle()
 }
 
 //generate the card layout
@@ -259,7 +338,7 @@ function loadRestaurantElement(restaurant) {
             ${genLikeHtml(restaurant.retaurantId)}
         </div>
         <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">${restaurant.name}<i class="material-icons right">close</i></span>
+            <span class="card-title">${restaurant.name}<i class="material-icons right">close</i></span>
             <p>${restaurant.street}</p>
             <div class="row">
                 <div class="col s12 m4">
@@ -271,14 +350,16 @@ function loadRestaurantElement(restaurant) {
                 </div>
                 <div class="col s12 m4">
                     <h6>Map</h6>
-                    <iframe
-                        class="center"
-                        width="275"
-                        style="border:0"
-                        loading="lazy"
-                        allowfullscreen
-                        src="https://www.google.com/maps/embed/v1/place?key=APIKEY&q=place_id:${restaurant.placeId}">
-                    </iframe>
+                    <div id="map-${restaurant.placeId}" style="height:175px">
+                        <iframe
+                            class="center"
+                            width="275"
+                            style="border:0"
+                            loading="lazy"
+                            allowfullscreen
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBk9-q-2IJGlD0OoWJJ-AT9DV0kYatK8xA&q=place_id:${restaurant.placeId}">
+                        </iframe>
+                    </div>
                 </div>
                 <div class="col s12 m4" id="direction-${restaurant.placeId}">
                     <a id="${restaurant.placeId}" class="waves-effect blue btn direction center"><i class="material-icons-outlined left">directions</i>Directions</a>
@@ -347,10 +428,44 @@ async function getDirections(origin) {
     let time = directions.data.routes[0].legs[0].duration.text;
     let miles = directions.data.routes[0].legs[0].distance.text;
     let mainRoad = directions.data.routes[0].summary;
+    const directionService = new google.maps.DirectionsService();
+    const directionRender = new google.maps.DirectionsRenderer();
+    const map = new google.maps.Map(document.getElementById("map-"+origin), {
+        zoom: 7,
+        center: { lat: 35.9132, lng: 79.0558 },
+        disableDefaultUI: true,
+    });
+    directionRender.setMap(map);
+    renderDirectionMap(directionService, directionRender, destination, origin);
     document.getElementById('direction-'+origin).innerHTML = `<h6>Fastest Route</h6>
                                                               <p><i class="material-icons-outlined left">schedule</i> ${time}</p>
                                                               <p><i class="material-icons-outlined left">map</i> ${miles}</p>
                                                               <p><i class="material-icons-outlined left">add_road</i> via ${mainRoad}</p>`
+}
+
+function renderDirectionMap(service, renderer, originLocation, destinationLocation) {
+    service.route({
+        origin: {
+            placeId: originLocation
+        },
+        destination: {
+            placeId: destinationLocation
+        },
+        travelMode: google.maps.TravelMode.DRIVING,
+    },
+    (response, status) => {
+        if(status === 'OK') {
+            renderer.setDirections(response);
+        }
+    })
+}
+
+function formComplete() {
+   return new google.maps.places.Autocomplete(
+        document.getElementById('detail-address'), {
+            types: ['geocode'],
+        }
+    )
 }
 
 //account details page and helper functions
@@ -392,6 +507,7 @@ async function accountDetails() {
         <h4 class="center">Favorite Attractions</h4>
         ${likedAttractions}
         <br>`;
+        let autocomplete = formComplete();
         let image = document.querySelectorAll('.materialboxed');
         let imageInstance = M.Materialbox.init(image);
         document.querySelectorAll(".add-favorite").forEach(item => {
@@ -428,6 +544,7 @@ async function accountDetails() {
                 document.getElementById("update-status").innerHTML = `<p class="green-text">Update successful!</p>`;
             })
         })
+        darkToggle();
     }
 }
 

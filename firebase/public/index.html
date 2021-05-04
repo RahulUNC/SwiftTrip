@@ -13,10 +13,28 @@
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <style>
+        .pac-container {
+            z-index: 1051 !important;
+        }
+    </style>
+    <script>
+        let autocomplete;
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('signup-address'), {
+                    types: ['geocode'],
+                }
+            )
+        }
+    </script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk9-q-2IJGlD0OoWJJ-AT9DV0kYatK8xA&libraries=places&callback=initAutocomplete">
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
-<body>
+<body class="">
     <div class="navbar-fixed">
         <nav class="blue darken-4">
             <div class="nav-wrapper container">
@@ -35,6 +53,9 @@
                     <li class="logged-in">
                         <a id="logout"><i class="material-icons-outlined left">logout</i>Logout</a>
                     </li>
+                    <li class="logged-in">
+                        <a id="dark-mode"><i class="material-icons-outlined left">dark_mode</i>Dark Toggle</a>
+                    </li>
                     <li class="logged-out">
                         <a class="modal-trigger" data-target="modal-login"><i
                                 class="material-icons-outlined left">login</i>Login</a>
@@ -50,23 +71,26 @@
     </div>
     <ul class="sidenav" id="mobile-demo">
         <li class="logged-in">
-            <a id="feed-mobile"><i class="material-icons-outlined left">restaurant</i>Restaurants</a>
+            <a id="feed-mobile" class="mnav"><i class="material-icons-outlined left">restaurant</i>Restaurants</a>
         </li>
         <li class="logged-in">
-            <a id="attraction-mobile"><i class="material-icons-outlined left">park</i>Attractions</a>
+            <a id="attraction-mobile" class="mnav"><i class="material-icons-outlined left">park</i>Attractions</a>
         </li>
         <li class="logged-in">
-            <a id="account-details-mobile"><i class="material-icons-outlined left">person</i>Account</a>
+            <a id="account-details-mobile" class="mnav"><i class="material-icons-outlined left">person</i>Account</a>
         </li>
         <li class="logged-in">
-            <a id="logout-mobile"><i class="material-icons-outlined left">logout</i>Logout</a>
+            <a id="logout-mobile" class="mnav"><i class="material-icons-outlined left">logout</i>Logout</a>
+        </li>
+        <li class="logged-in">
+            <a id="dark-mode-mobile" class="mnav"><i class="material-icons-outlined left">dark_mode</i>Dark Toggle</a>
         </li>
         <li class="logged-out">
-            <a class="modal-trigger" data-target="modal-login"><i
+            <a class="modal-trigger mnav" data-target="modal-login"><i
                     class="material-icons-outlined left">login</i>Login</a>
         </li>
         <li class="logged-out">
-            <a class="modal-trigger" data-target="modal-signup"><i class="material-icons-outlined left">add</i>Create
+            <a class="modal-trigger mnav" data-target="modal-signup"><i class="material-icons-outlined left">add</i>Create
                 Account</a>
         </li>
     </ul>
@@ -105,7 +129,6 @@
                 <div class="input-field">
                     <i class="material-icons-outlined prefix">contact_mail</i>
                     <input type="text" id="signup-address" required />
-                    <label for="signup-address">Mailing Address</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons-outlined prefix">cake</i>

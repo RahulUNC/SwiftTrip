@@ -8,6 +8,7 @@ exports.handler = async (event) => {
     let response = {};
     try {
         let time = new Date();
+        time.setHours(time.getHours() - 4);
         await dynamodb.scan({TableName: 'attraction'}).promise().then(data => {
             let returnArr = [];
             data['Items'].forEach(attraction => {
@@ -18,7 +19,7 @@ exports.handler = async (event) => {
                         name: item.name,
                         street: item.steet + ', Chapel Hill, NC',
                         attractionId: item.attractionId,
-                        popularTime: JSON.parse(item.popularTime)[getDayPrefix(time.getDay())][time.getHours()].occupancyPercent,
+                        popularTime: JSON.parse(item.popularTime)[getDayPrefix(time.getDay())].filter(i => i.hour === time.getHours())[0].occupancyPercent,
                         type: JSON.parse(item.type),
                         rating: item.rating,
                         website: item.website,
