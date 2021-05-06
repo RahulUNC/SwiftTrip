@@ -216,7 +216,7 @@ function loadAttractionElement(attraction) {
                             style="border:0"
                             loading="lazy"
                             allowfullscreen
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBk9-q-2IJGlD0OoWJJ-AT9DV0kYatK8xA&q=place_id:${attraction.placeId}">
+                            src="https://www.google.com/maps/embed/v1/place?key=HIDDEN&q=place_id:${attraction.placeId}">
                         </iframe>
                     </div>
                 </div>
@@ -357,7 +357,7 @@ function loadRestaurantElement(restaurant) {
                             style="border:0"
                             loading="lazy"
                             allowfullscreen
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBk9-q-2IJGlD0OoWJJ-AT9DV0kYatK8xA&q=place_id:${restaurant.placeId}">
+                            src="https://www.google.com/maps/embed/v1/place?key=HIDDEN&q=place_id:${restaurant.placeId}">
                         </iframe>
                     </div>
                 </div>
