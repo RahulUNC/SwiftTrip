@@ -13,28 +13,27 @@ SwfitTrip is a one stop web application that shows you restaurants and attractio
   - They are called by two AWS functions every 24 hours through a cron job, as the APIFY endpoint can take a while to respond
   - As the execution is over, all data is transferred straight to DynamoDB
 - OpenWeatherMap:
-  - This API provides the weather tip that is presented on the main application page
+  - This API provides the weather tip that is presented on the Restaurant and Attractions page
 - Google Maps Geocode API
-  - The geocode api is called each time an account is made, to geocode the users location into a Google Map's placeid
+  - The geocode api is called each time an account is made or an account is updated, to geocode the users location into a Google Map's placeid
 - Google Maps Direction API
   - The direction api is called to find the directions from a users location to a place the select in the application  (restaurant, attraction)
   - The user placeId that was geocoded prior is pulled from Firestore and directions are provided
 - Google Maps Javascript API
-  - This API is used to retrieve an iframe embedd of a Google Maps Objec with directions rendered on top of the map
+  - This API is used to retrieve an iframe embedd of a Google Maps Objec with directions rendered on top of the map. Furthermore the Places AutoCompleteAPI relies on the Maps Javascript API
 
 ## AWS Backend
-I have created two lambda functions set up as cron jobs to update DynamoDB tables every 24 hours. Two other functions take the data from DynamoDB process it and display it back to the application via exposed API endpoints created in AWS API Gateway. This ensures that the front end stays relatively light as all data processing is on the backend. All of the infomration that is rendered on my main two application pages is stored completely in DynamoDB in AWS
+I have created two lambda functions set up as cron jobs to update DynamoDB tables every 24 hours. Two other functions take the data from DynamoDB process it and display it back to the application via exposed API endpoints created in AWS API Gateway. This ensures that the front end stays relatively light as all data processing is on the backend. All of the infomration that is rendered on the Attractions and Restaurants pages is stored completely in DynamoDB.
 
 ## Firebase Configuration
-Firebases houses the hosting for the entire website as well as user accounts. Access to application resources are only permitted if there is logged in user. From here 5 firebase functions call outside resources (AWS API Endpoints, Geocode API, Directions API, and OpenWeatherMap).
+Firebases houses the hosting for the entire website as well as user accounts. Access to application resources are only permitted if there is a logged in user. From here 5 firebase intereacts with AWS via API Gateway Endpoints or with other API's.
 
 ## Other Info
 All API access keys have been removed from this repository.
 
 ## Projected Point Break Down
-1. 5 API's (APIFY, OpenWeatherMap, Geocode, Direction, Maps Javascript) : 55 Points
-2. Complete Backend Framework (Mixed with Firebase and AWS, confirmed with Chris) : 30 Points
+1. 5 API's (APIFY Google Maps Crawler, OpenWeatherMap, Geocode, Directions, Maps Javascript) : 55 Points
+2. Complete Backend Framework (Mixed with AWS and Firebase, confirmed with Chris) : 30 Points
 3. Autocomp (Both Address fields in forms uses the Places Autocomplete API) : 10 Points
 4. Dark Mode (Synced With User) : 5 Points
-
 Points total up to 100, 10 extra for any margin of error
