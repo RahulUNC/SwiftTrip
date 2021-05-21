@@ -30,11 +30,3 @@ Firebases houses the hosting for the entire website as well as user accounts. Ac
 
 ## Other Info
 All API access keys have been removed from this repository.
-
-## Projected Point Break Down
-1. 5 API's (APIFY Google Maps Crawler, OpenWeatherMap, Geocode, Directions, Maps Javascript) : 55 Points
-2. Complete Backend Framework (Mixed with AWS and Firebase, confirmed with Chris) : 30 Points
-3. Autocomp (Both Address fields in forms uses the Places Autocomplete API) : 10 Points
-4. Dark Mode (Synced With User) : 5 Points
-
-Points total up to 100, 10 extra for any margin of error
